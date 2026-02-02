@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+public/music_descriptions
+public/music_thumbnails
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
