@@ -3,7 +3,7 @@ import NavBar from "../ui/nav-bar";
 
 export default function movies() {
   return (
-    <div id="mainLayout">
+    <div id="main-layout">
       <NavBar/>
       <main>
         <div className="container">

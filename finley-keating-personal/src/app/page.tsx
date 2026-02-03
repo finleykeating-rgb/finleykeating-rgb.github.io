@@ -3,7 +3,7 @@ import NavBar from "./ui/nav-bar";
 
 export default function Home() {
   return (
-    <div id="mainLayout">
+    <div id="main-layout">
       <NavBar/>
       <main>
         <div className="container">
@@ -11,7 +11,6 @@ export default function Home() {
         </div>
       </main>
     </div>
-    
-    
+  
   );
 }
