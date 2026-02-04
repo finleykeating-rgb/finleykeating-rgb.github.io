@@ -1,17 +1,6 @@
 import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
-import Albums from "../../../public/music_descriptions/albums.json";
-import { randomInt } from "crypto";
-
-const shuffle = (array: Album[]) => { 
-  for (let i = array.length - 1; i > 0; i--) { 
-    const j = Math.floor(Math.random() * (i + 1)); 
-    [array[i], array[j]] = [array[j], array[i]]; 
-  } 
-  return array; 
-}; 
-
-
+import Albums from "@public/music_descriptions/albums.json";
 
 function AlbumBanner() {
   let music_data: Album[] = Albums  
@@ -30,7 +19,7 @@ function AlbumBanner() {
           <div className="wrapper">
               <div className="images" style={{'--speed': `${speed}ms`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    <AlbumPreview key={index} name={data.name} artist={data.artist} release_year={data.release_year} thumbnail={data.thumbnail}/>
+                    <AlbumPreview key={index} name={data.name} artist={data.artist} release_year={data.release_year} thumbnail={data.thumbnail} album_preview={data.album_preview}/>
                   ))}
               </div>
           </div>

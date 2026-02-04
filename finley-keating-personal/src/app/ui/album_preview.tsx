@@ -1,12 +1,46 @@
-import { transform } from "next/dist/build/swc/generated-native";
+'use client'
 import Image from "next/image";
-import { stringify } from "querystring";
+import useSound from "use-sound";
+import convert from "color-convert";
+import { useEffect, useState } from "react";
 
-export default function AlbumPreview({name, artist, release_year, thumbnail}: Album) {
+
+export default function AlbumPreview({name, artist, release_year, thumbnail, album_preview}: Album) {
     let index = 0
     index += 1;
+
+    const [hex, setRandomColor] = useState("000000");
+
+    useEffect(() => {
+        let hue = Math.floor(Math.random() * 361); 
+
+        let saturation = Math.floor(Math.random() * 31) + 70; 
+
+        // Value (V) (or brightness) is a percentage from 0 to 100%
+        let value = Math.floor(Math.random() * 31) + 70;
+        
+        let rgb = convert.hsv.rgb([hue, saturation, value])
+        setRandomColor((rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2]).toString(16));
+    }, []);
+    
+    
+
+    const [play, {stop}] = useSound(album_preview, {volume: 0.3, playbackRate: 1})
+    const [delayHandler, setDelayHandler] = useState<number | undefined>(undefined)
+
+    const handleMouseEnter = () => {
+        const newTimer = window.setTimeout(() => {play()}, 500)
+        setDelayHandler(newTimer);
+    }
+
+    const handleMouseLeave = () => {
+        clearTimeout(delayHandler)
+        stop()
+    }
+
+  // Pad the hex string with leading zeros if it's less than 6 digits
     return (
-        <div className="album">
+        <div className="album" style={{'--random-background-color': `#${hex}`} as React.CSSProperties} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <Image className="thumbnail"
               src={thumbnail}
               width={800}
@@ -15,17 +49,6 @@ export default function AlbumPreview({name, artist, release_year, thumbnail}: Al
               sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
               style={{clipPath: "url(#albumMask" + index.toString()}}
               />
-            {/* <svg xmlns="http://www.w3.org/2000/svg" width="366.7" height="400" fill="currentColor" viewBox="0 0 16 16" className="album-cover">
-                <mask id={"albumMask" + index.toString()}>
-                    <path d="M16 0h-5.551
-                a2.7 2.7 0 0 1-.443 1.042
-                C9.613 1.588 8.963 2 8 2
-                s-1.613-.412-2.006-.958
-                A2.7 2.7 0 0 1 5.551 0
-                H0v6 1.5 1.5 0 0 0 1.5 16
-                h13 1.5 1.5 0 0 0 1.5-1.5z"/>
-                </mask>
-            </svg> */}
             <svg width="0" height="0" style={{ position: "absolute" }}>
                 <defs>
                     <clipPath id={"albumMask" + index.toString()} clipPathUnits="objectBoundingBox">
@@ -33,14 +56,17 @@ export default function AlbumPreview({name, artist, release_year, thumbnail}: Al
                     </clipPath>
                 </defs>
                 </svg>
-            <Image 
-                className="record"
-                src="/music_thumbnails/record.svg" 
-                alt="record" 
-                width={600}
-                height={600}
-                sizes="(max-width: 768px) 80%, (max-width: 1200px) 33%, 25%"
-                />
+            <div className="recordHolder">
+                <Image 
+                    className="record"
+                    src="/music_thumbnails/record.svg" 
+                    alt="record" 
+                    width={600}
+                    height={600}
+                    sizes="(max-width: 768px) 80%, (max-width: 1200px) 33%, 25%"
+                    />
+            </div>
+            
             <div className="description">
                 <h1>{name}</h1>
                 <h1>{artist}</h1>

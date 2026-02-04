@@ -2,5 +2,6 @@ interface Album {
     name: string,
     artist: string,
     release_year: number,
-    thumbnail: string
+    thumbnail: string,
+    album_preview: string
 }

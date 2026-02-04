@@ -38,6 +38,7 @@ yarn-error.log*
 
 public/music_descriptions
 public/music_thumbnails
+public/music_files
 
 # typescript
 *.tsbuildinfo
