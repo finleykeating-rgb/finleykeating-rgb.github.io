@@ -57,7 +57,7 @@ html{
 
 .banner-wrapper .wrapper .images {
   display: flex;
-  /* animation: swipe var(--speed) linear infinite; */
+  animation: swipe var(--speed) linear infinite;
   animation-delay: var(--offset);
 }
 
@@ -72,6 +72,10 @@ html{
 }
 
 .banner-wrapper:hover .wrapper .images {
+  animation-play-state: paused;
+}
+
+.banner-wrapper:hover .wrapper .images .album {
   animation-play-state: paused;
 }
 
@@ -105,7 +109,20 @@ svg {
   overflow: hidden;
   padding: 0.5rem;
   background-color: var(--random-background-color);
+  background-image: url("/conveyor.jpg");
+  background-size: cover;
+  animation: bgScroll 60000ms linear infinite;
 }
+
+@keyframes bgScroll {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -780% 0%; 
+  }
+}
+
 
 .record {
   position: absolute;
@@ -178,7 +195,7 @@ svg {
   font-size: 1rem;
   line-height: 1rem;
   padding: 0.5rem;
-  color: white;
+  color: green;
   z-index: 3;
 }
 

@@ -14,10 +14,10 @@ export default function AlbumPreview({name, artist, release_year, thumbnail, alb
     useEffect(() => {
         let hue = Math.floor(Math.random() * 361); 
 
-        let saturation = Math.floor(Math.random() * 31) + 70; 
+        let saturation = Math.floor(Math.random() * 31) + 50; 
 
         // Value (V) (or brightness) is a percentage from 0 to 100%
-        let value = Math.floor(Math.random() * 31) + 70;
+        let value = Math.floor(Math.random() * 31) + 50;
         
         let rgb = convert.hsv.rgb([hue, saturation, value])
         setRandomColor((rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2]).toString(16));
