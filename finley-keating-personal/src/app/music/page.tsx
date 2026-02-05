@@ -4,6 +4,7 @@ import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
 import Albums from "@public/music_descriptions/albums.json";
 import {Howler} from 'howler';
+import { BiVolume, BiVolumeFull, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 
 function AlbumBanner(music_data: Album[], speed_per_album: number) {
 
@@ -31,11 +32,32 @@ function AlbumBanner(music_data: Album[], speed_per_album: number) {
 
 function Blurb() {
 
-  const [volumePercentage, setVolumePercentage] = useState(30);
+  const [volumePercentage, setVolumePercentage] = useState(50);
+  const [isMuted, setMuted] = useState(false);
 
-  const updateVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    Howler.volume(e.target.valueAsNumber / 100)
+  const base_volume = 0.3
+
+  const updateVolumeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
+    Howler.volume(e.target.valueAsNumber / 50 * 0.3)
+    setVolumePercentage(e.target.valueAsNumber);
+    setMuted(false);
+
   }
+
+
+  const VolumeControl = ( volumePercentage: number, isMuted: boolean ) => {
+    if (isMuted || volumePercentage === 0) {
+      return (<BiVolumeMute />);
+    }
+    if (volumePercentage < 33) {
+      return (<BiVolume />);
+    }
+    if (volumePercentage < 66) {
+      return (<BiVolumeLow />);
+    }
+      return (<BiVolumeFull />);
+  };
+
   return (
     <div className="blurb">
       <div>
@@ -43,12 +65,13 @@ function Blurb() {
       </div>
       <div>
         <p>
-          Hover over an album to view the name, artist, release year and hear a excerpt
+          Hover over an album to view the name, artist, release year and hear an excerpt
         </p>
       </div>
       <div>
-        <label htmlFor="range-slider">{volumePercentage}%</label>
-        <input type="range" min="0" max="100" onChange={updateVolume}/>
+        <label htmlFor="range-slider">{volumePercentage}% {VolumeControl(volumePercentage, isMuted)}</label>
+        <input type="range" min="0" max="100" onChange={updateVolumeSlider}/>
+        
       </div>
       
     </div>

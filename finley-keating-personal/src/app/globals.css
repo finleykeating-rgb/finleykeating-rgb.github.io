@@ -99,8 +99,7 @@ html{
 
 svg {
   position: absolute;
-  height: 100%;
-  alignment-baseline: central;
+  /* alignment-baseline: central; */
   overflow: hidden;
 }
 

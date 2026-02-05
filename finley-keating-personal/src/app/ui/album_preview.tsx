@@ -24,7 +24,7 @@ export default function AlbumPreview(name: string, artist: string, release_year:
     }
 
     return (
-        <div className="album" onMouseEnter={handleMouseEnter} onMouseOut={handleMouseLeave}  key={key}>
+        <div className="album" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}  key={key}>
             <Image className="thumbnail"
               src={thumbnail}
               width={800}
