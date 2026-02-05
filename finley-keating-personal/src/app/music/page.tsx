@@ -1,10 +1,11 @@
 "use client"
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
 import Albums from "@public/music_descriptions/albums.json";
+import {Howler} from 'howler';
 
-function AlbumBanner(music_data: Album[], speed_per_album: number, volume: number) {
+function AlbumBanner(music_data: Album[], speed_per_album: number) {
 
   const num = music_data.length;
 
@@ -12,17 +13,15 @@ function AlbumBanner(music_data: Album[], speed_per_album: number, volume: numbe
 
   const scroll_distance = -20 * num
 
-  music_data = music_data.reverse()
-
   return (
       <div className="banner-wrapper">
           <div className="wrapper">
               <div className="images" style={{'--speed': `${speed}s`, '--scroll':`${scroll_distance}%`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, volume, index)
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index)
                   ))}
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, volume, index + num)
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index + num)
                   ))}
               </div>
           </div>
@@ -30,13 +29,12 @@ function AlbumBanner(music_data: Album[], speed_per_album: number, volume: numbe
   )
 }
 
-function Blurb(setVolume : Dispatch<SetStateAction<number>>) {
+function Blurb() {
 
   const [volumePercentage, setVolumePercentage] = useState(30);
 
   const updateVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume(e.target.valueAsNumber / 100);
-    setVolumePercentage(Math.round(e.target.valueAsNumber));
+    Howler.volume(e.target.valueAsNumber / 100)
   }
   return (
     <div className="blurb">
@@ -59,7 +57,6 @@ function Blurb(setVolume : Dispatch<SetStateAction<number>>) {
 }
 
 export default function music() {
-  const [volume, setVolume] = useState(0.3)
 
   const music_data : Album[] = Albums
 
@@ -69,9 +66,9 @@ export default function music() {
     <div id="main-layout">
       <NavBar/>
       <main className="musicPage">
-        {AlbumBanner(music_data.slice(0, middle), 2, volume)}
-        {Blurb(setVolume)}
-        {AlbumBanner(music_data.slice(middle), 2, volume)}
+        {AlbumBanner(music_data.slice(0, middle), 2)}
+        <Blurb/>
+        {AlbumBanner(music_data.slice(middle), 2)}
       </main>
     </div>
   );

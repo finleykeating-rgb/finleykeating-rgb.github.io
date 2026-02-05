@@ -5,12 +5,12 @@ import {  useState } from "react";
 
 
 
-export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, volume: number, key: number) {
+export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, key: number) {
     let index = 0
     index += 1;
     
 
-    const [play, {stop}] = useSound(album_preview, {volume: volume})
+    const [play, {stop}] = useSound(album_preview)
     const [delayHandler, setDelayHandler] = useState<number | undefined>(undefined)
 
     const handleMouseEnter = () => {
@@ -24,7 +24,7 @@ export default function AlbumPreview(name: string, artist: string, release_year:
     }
 
     return (
-        <div className="album" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={key}>
+        <div className="album" onMouseEnter={handleMouseEnter} onMouseOut={handleMouseLeave}  key={key}>
             <Image className="thumbnail"
               src={thumbnail}
               width={800}
