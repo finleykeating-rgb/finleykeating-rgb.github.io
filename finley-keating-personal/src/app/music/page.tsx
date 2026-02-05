@@ -1,25 +1,28 @@
+"use client"
+import { Dispatch, SetStateAction, useState } from "react";
 import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
 import Albums from "@public/music_descriptions/albums.json";
 
-function AlbumBanner() {
-  let music_data: Album[] = Albums  
+function AlbumBanner(music_data: Album[], speed_per_album: number, volume: number) {
+
   const num = music_data.length;
-  let index = 0;
-  // while (index < 20) {
-  //   music_data.push(music_data[index])
-  //   index += 1
-  // }
-  const speed = 60000;
+
+  const speed = num * speed_per_album;
+
+  const scroll_distance = -20 * num
 
   music_data = music_data.reverse()
 
   return (
       <div className="banner-wrapper">
           <div className="wrapper">
-              <div className="images" style={{'--speed': `${speed}ms`} as React.CSSProperties}>
+              <div className="images" style={{'--speed': `${speed}s`, '--scroll':`${scroll_distance}%`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    <AlbumPreview key={index} name={data.name} artist={data.artist} release_year={data.release_year} thumbnail={data.thumbnail} album_preview={data.album_preview}/>
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, volume, index)
+                  ))}
+                  {music_data.map((data, index)=> (
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, volume, index + num)
                   ))}
               </div>
           </div>
@@ -27,25 +30,48 @@ function AlbumBanner() {
   )
 }
 
-function Blurb() {
+function Blurb(setVolume : Dispatch<SetStateAction<number>>) {
+
+  const [volumePercentage, setVolumePercentage] = useState(30);
+
+  const updateVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(e.target.valueAsNumber / 100);
+    setVolumePercentage(Math.round(e.target.valueAsNumber));
+  }
   return (
-    <div>
-      <p>This is a collection of my favourite albums</p>
-      <p>One of my most important hobbies is listening to music</p>
-      <p>I have a preference for music with unique and layer instrumentals, such as classical music and jazz fusion</p>
+    <div className="blurb">
+      <div>
+        <p>This is a collection of my favourite albums. One of my most important hobbies is listening to music. I have a preference for music with unique and layer instrumentals, such as classical music and jazz fusion</p>
+      </div>
+      <div>
+        <p>
+          Hover over an album to view the name, artist, release year and hear a excerpt
+        </p>
+      </div>
+      <div>
+        <label htmlFor="range-slider">{volumePercentage}%</label>
+        <input type="range" min="0" max="100" onChange={updateVolume}/>
+      </div>
+      
     </div>
     
   )
 }
 
 export default function music() {
+  const [volume, setVolume] = useState(0.3)
+
+  const music_data : Album[] = Albums
+
+  const middle = Math.floor(music_data.length / 2)
+
   return (
     <div id="main-layout">
       <NavBar/>
       <main className="musicPage">
-        <AlbumBanner />
-        <Blurb />
-        <AlbumBanner />
+        {AlbumBanner(music_data.slice(0, middle), 2, volume)}
+        {Blurb(setVolume)}
+        {AlbumBanner(music_data.slice(middle), 2, volume)}
       </main>
     </div>
   );

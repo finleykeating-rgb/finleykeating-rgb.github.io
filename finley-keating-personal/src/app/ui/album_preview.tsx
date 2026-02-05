@@ -1,31 +1,16 @@
 'use client'
 import Image from "next/image";
 import useSound from "use-sound";
-import convert from "color-convert";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 
-export default function AlbumPreview({name, artist, release_year, thumbnail, album_preview}: Album) {
+
+export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, volume: number, key: number) {
     let index = 0
     index += 1;
-
-    const [hex, setRandomColor] = useState("000000");
-
-    useEffect(() => {
-        let hue = Math.floor(Math.random() * 361); 
-
-        let saturation = Math.floor(Math.random() * 31) + 50; 
-
-        // Value (V) (or brightness) is a percentage from 0 to 100%
-        let value = Math.floor(Math.random() * 31) + 50;
-        
-        let rgb = convert.hsv.rgb([hue, saturation, value])
-        setRandomColor((rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2]).toString(16));
-    }, []);
-    
     
 
-    const [play, {stop}] = useSound(album_preview, {volume: 0.3, playbackRate: 1})
+    const [play, {stop}] = useSound(album_preview, {volume: volume})
     const [delayHandler, setDelayHandler] = useState<number | undefined>(undefined)
 
     const handleMouseEnter = () => {
@@ -38,9 +23,8 @@ export default function AlbumPreview({name, artist, release_year, thumbnail, alb
         stop()
     }
 
-  // Pad the hex string with leading zeros if it's less than 6 digits
     return (
-        <div className="album" style={{'--random-background-color': `#${hex}`} as React.CSSProperties} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className="album" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={key}>
             <Image className="thumbnail"
               src={thumbnail}
               width={800}

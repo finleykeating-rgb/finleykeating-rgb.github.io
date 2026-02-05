@@ -54,22 +54,24 @@ html{
   list-style: none;
 }
 
-
-.banner-wrapper .wrapper .images {
-  display: flex;
-  animation: swipe var(--speed) linear infinite;
-  animation-delay: var(--offset);
-}
-
 @keyframes swipe {
   0% {
     transform: translateX(0);
   }
 
   100% {
-    transform: translateX(-780%);
+    transform: translateX(var(--scroll-length));
   }
 }
+
+.banner-wrapper .wrapper .images {
+  display: flex;
+  --scroll-length: var(--scroll);
+  animation: swipe var(--speed) linear infinite;
+  animation-delay: var(--offset);
+}
+
+
 
 .banner-wrapper:hover .wrapper .images {
   animation-play-state: paused;
@@ -93,7 +95,6 @@ html{
   display: grid;
   grid-template-rows: auto 1fr;
   text-align: center;
-  background: chocolate;
 }
 
 svg {
@@ -103,26 +104,31 @@ svg {
   overflow: hidden;
 }
 
-.album {
-  min-width: 20%;
-  position: relative;
-  overflow: hidden;
-  padding: 0.5rem;
-  background-color: var(--random-background-color);
-  background-image: url("/conveyor.jpg");
-  background-size: cover;
-  animation: bgScroll 60000ms linear infinite;
-}
-
 @keyframes bgScroll {
   0% {
     background-position: 0% 0%;
   }
   100% {
-    background-position: -780% 0%; 
+    background-position: -2000% 0%; 
   }
 }
 
+.album {
+  min-width: 20%;
+  position: relative;
+  overflow: hidden;
+  padding: 0.5rem;
+  background-image: url("/conveyor.jpg");
+  background-size: cover;
+  animation: bgScroll 200s linear infinite;
+}
+
+.blurb {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: green;
+  
+}
 
 .record {
   position: absolute;
@@ -195,7 +201,7 @@ svg {
   font-size: 1rem;
   line-height: 1rem;
   padding: 0.5rem;
-  color: green;
+  color: white;
   z-index: 3;
 }
 
