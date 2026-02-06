@@ -2,27 +2,28 @@
 import { useState } from "react";
 import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
+import AirportStyleSign from "../ui/airport_style_sign"
 import Albums from "@public/music_descriptions/albums.json";
 import {Howler} from 'howler';
 import { BiVolume, BiVolumeFull, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 
-function AlbumBanner(music_data: Album[], speed_per_album: number) {
+function AlbumBanner(music_data: Album[], speed_per_album: number, album_size: number) {
 
   const num = music_data.length;
 
   const speed = num * speed_per_album;
 
-  const scroll_distance = -20 * num
+  const scroll_distance = -1 * album_size * num
 
   return (
-      <div className="banner-wrapper">
+      <div className="banner-wrapper center-vertically">
           <div className="wrapper">
               <div className="images" style={{'--speed': `${speed}s`, '--scroll':`${scroll_distance}%`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index)
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index, album_size)
                   ))}
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index + num)
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index + num, album_size)
                   ))}
               </div>
           </div>
@@ -61,7 +62,7 @@ function Blurb() {
   return (
     <div className="blurb">
       <div>
-        <p>This is a collection of my favourite albums. One of my most important hobbies is listening to music. I have a preference for music with unique and layer instrumentals, such as classical music and jazz fusion</p>
+        {AirportStyleSign("Music", "music")}
       </div>
       <div>
         <p>
@@ -89,9 +90,9 @@ export default function music() {
     <div id="main-layout">
       <NavBar/>
       <main className="musicPage">
-        {AlbumBanner(music_data.slice(0, middle), 2)}
+        {AlbumBanner(music_data.slice(0, middle), 2, 15)}
         <Blurb/>
-        {AlbumBanner(music_data.slice(middle), 2)}
+        {AlbumBanner(music_data.slice(middle), 2, 15)}
       </main>
     </div>
   );

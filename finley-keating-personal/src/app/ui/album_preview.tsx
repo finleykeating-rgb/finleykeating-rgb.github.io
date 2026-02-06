@@ -5,7 +5,7 @@ import {  useState } from "react";
 
 
 
-export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, key: number) {
+export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, key: number, album_size: number) {
     let index = 0
     index += 1;
     
@@ -24,7 +24,7 @@ export default function AlbumPreview(name: string, artist: string, release_year:
     }
 
     return (
-        <div className="album" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}  key={key}>
+        <div className="album" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}  key={key} style={{'--album-size': `${album_size}%`} as React.CSSProperties}>
             <Image className="thumbnail"
               src={thumbnail}
               width={800}

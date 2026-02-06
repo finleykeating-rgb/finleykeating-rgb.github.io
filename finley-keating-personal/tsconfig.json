@@ -21,7 +21,8 @@
     "paths": {
       "@/*": ["./*"],
       "@album_preview/*": ["./public/music_files/album_preview/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@fonts/*": ["./public/fonts/*"]
     }
   },
   "include": [
