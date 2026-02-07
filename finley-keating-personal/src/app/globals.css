@@ -74,7 +74,7 @@ html{
 
 .musicPage {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 2fr 1fr 2fr;
   text-align: center;
   background-image: url("/textures/airport_floor2.png");
 }
@@ -89,18 +89,23 @@ html{
 }
 
 .album {
-  min-width: var(--album-size);
+  min-width: var(--album-space-percentage);
   position: relative;
   overflow: hidden;
-  padding: 0.5rem;
+  padding: 0;
   background-image: url("/textures/conveyor3.jpg");
   background-size: cover;
   animation: bgScroll 200s linear infinite;
 }
 
+.album-distribution {
+  padding: var(--padding-percentage);
+  transform: rotate(var(--random-rotation)) translateX(var(--random-translateX)) translateY(var(--random-translateY));
+}
+
 .blurb {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr auto;
   color: yellow;
 }
 
@@ -116,17 +121,26 @@ html{
 .recordHolder {
   display: none;
   position: absolute;
-  width: 100%;
-  height: 100%;
-  transform: translateY(-100%) translateX(5%);
+  width: var(--album-size-percentage);
+  height: var(--album-size-percentage);
+  transform: translateY(-100%) translateX(var(--padding-offset));
 }
 
-.album:hover > .recordHolder {
+.thumbnail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.thumbnail:hover ~ .recordHolder {
   display: block;
   
 }
 
-.album:hover > .recordHolder > .record {
+.thumbnail:hover ~ .recordHolder > .record {
   display: block;
   animation: spin 3s linear infinite;
 }
@@ -140,9 +154,8 @@ html{
   }
 }
 
-.album:hover > .thumbnail {
+.thumbnail:hover {
   filter: blur(3px) brightness(0.5);
- 
 }
 
 .description {
@@ -153,20 +166,11 @@ html{
   padding: 0.5rem;
 }
 
-.thumbnail {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  z-index: 2;
-}
-
 .album-cover {
   transform: translateY(-100%) translateX(-0.5rem) rotate(180deg);
 }
 
-.album:hover > .description {
+.thumbnail:hover ~ .description {
   display: block;
   position: absolute;
   top: 50%;

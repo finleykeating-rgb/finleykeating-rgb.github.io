@@ -3,13 +3,43 @@ import Image from "next/image";
 import useSound from "use-sound";
 import {  useState } from "react";
 
+// Google AI Hash
+function stringToHashCode(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char; // Simple hash algorithm
+        hash |= 0; // Convert to 32bit integer
+    }
+    // Use Math.abs to ensure a positive number, as the hash can be negative
+    return Math.abs(hash);
+}
+
+function randomToRange(randomNum: number, min: number, max: number, divider: number, density: number): number {
+    const range = max - min
+    return Math.round(((randomNum / divider) % density) * range / density + min);
+}
 
 
-export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, key: number, album_size: number) {
+export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, key: number, album_per_screen: number, album_size_percentage: number) {
     let index = 0
     index += 1;
     
+    const album_space_percentage = 100 / album_per_screen
+    const padding_percentage = (100 - album_size_percentage) / 2
 
+    const randHash = stringToHashCode(name)
+    const randomAngle = randomToRange(randHash, -15, 15, 1, 2 ** 10);
+    const randomX = randomToRange(randHash, -10, 10, 2 ** 10, 2 ** 10);
+    const randomY = randomToRange(randHash, -5, 5, 2 ** 20, 2 ** 10);
+
+    const adjust_angle = () => {
+        if (randomAngle * randomY > 0) {
+            return -randomAngle
+        } else {
+            return randomAngle
+        }
+    }
     const [play, {stop}] = useSound(album_preview)
     const [delayHandler, setDelayHandler] = useState<number | undefined>(undefined)
 
@@ -24,40 +54,39 @@ export default function AlbumPreview(name: string, artist: string, release_year:
     }
 
     return (
-        <div className="album" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}  key={key} style={{'--album-size': `${album_size}%`} as React.CSSProperties}>
-            <Image className="thumbnail"
-              src={thumbnail}
-              width={800}
-              height={800}
-              alt={name}
-              sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
-              style={{clipPath: "url(#albumMask" + index.toString()}}
-              />
-            <svg width="0" height="0" style={{ position: "absolute" }}>
-                <defs>
-                    <clipPath id={"albumMask" + index.toString()} clipPathUnits="objectBoundingBox">
-                    <path d="M1 0h-0.3469a0.1688 0.1688 0 0 1 -0.0277 0.0651C0.6008 0.0993 0.5602 0.125 0.5 0.125 s-0.1008 -0.0258 -0.1254 -0.0599A0.1688 0.1688 0 0 1 0.3469 0H0v1H1Z" style={{transform: "rotate(0.25turn) translateY(-1px)"}}/>
-                    </clipPath>
-                </defs>
-                </svg>
-            <div className="recordHolder">
-                <Image 
-                    className="record"
-                    src="/music_thumbnails/record.svg" 
-                    alt="record" 
-                    width={600}
-                    height={600}
-                    sizes="(max-width: 768px) 80%, (max-width: 1200px) 33%, 25%"
-                    />
+        <div className="album"   key={key} style={{'--album-space-percentage': `${album_space_percentage}%`} as React.CSSProperties}>
+            <div className="album-distribution" style={{'--padding-percentage': `${padding_percentage * album_size_percentage / 100}%`, '--random-rotation': `${adjust_angle()}deg`, '--random-translateX': `${randomX}%`, '--random-translateY': `${randomY}%`} as React.CSSProperties}>
+                <Image className="thumbnail" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+                src={thumbnail}
+                width={800}
+                height={800}
+                alt={name}
+                style={{clipPath: "url(#albumMask" + index.toString()}}
+                />
+                <svg width="0" height="0" style={{ position: "absolute" }}>
+                    <defs>
+                        <clipPath id={"albumMask" + index.toString()} clipPathUnits="objectBoundingBox">
+                        <path d="M1 0h-0.3469a0.1688 0.1688 0 0 1 -0.0277 0.0651C0.6008 0.0993 0.5602 0.125 0.5 0.125 s-0.1008 -0.0258 -0.1254 -0.0599A0.1688 0.1688 0 0 1 0.3469 0H0v1H1Z" style={{transform: "rotate(0.25turn) translateY(-1px)"}}/>
+                        </clipPath>
+                    </defs>
+                    </svg>
+                <div className="recordHolder" style={{'--album-size-percentage': `${album_size_percentage}%`, '--padding-offset': `${padding_percentage}%`} as React.CSSProperties}>
+                    <Image 
+                        className="record"
+                        src="/music_thumbnails/record.svg" 
+                        alt="record" 
+                        width={600}
+                        height={600}
+                        sizes="(max-width: 768px) 80%, (max-width: 1200px) 33%, 25%"
+                        />
+                </div>
+                
+                <div className="description">
+                    <h1>{name}</h1>
+                    <h1>{artist}</h1>
+                    <h1>{release_year}</h1>
+                </div>
             </div>
-            
-            <div className="description">
-                <h1>{name}</h1>
-                <h1>{artist}</h1>
-                <h1>{release_year}</h1>
-            </div>
-            
-            
         </div>
     )
 }

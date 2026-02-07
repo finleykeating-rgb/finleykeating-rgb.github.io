@@ -7,23 +7,23 @@ import Albums from "@public/music_descriptions/albums.json";
 import {Howler} from 'howler';
 import { BiVolume, BiVolumeFull, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 
-function AlbumBanner(music_data: Album[], speed_per_album: number, album_size: number) {
+function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_screen: number, album_size_percentage: number) {
 
   const num = music_data.length;
 
   const speed = num * speed_per_album;
 
-  const scroll_distance = -1 * album_size * num
+  const scroll_distance = -100 * num / album_per_screen
 
   return (
       <div className="banner-wrapper center-vertically">
           <div className="wrapper">
               <div className="images" style={{'--speed': `${speed}s`, '--scroll':`${scroll_distance}%`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index, album_size)
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index, album_per_screen, album_size_percentage)
                   ))}
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index + num, album_size)
+                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index + num, album_per_screen, album_size_percentage)
                   ))}
               </div>
           </div>
@@ -60,7 +60,7 @@ function Blurb() {
   };
 
   return (
-    <div className="blurb">
+    <div className="blurb center-vertically">
       <div>
         {AirportStyleSign("Music", "music")}
       </div>
@@ -90,9 +90,9 @@ export default function music() {
     <div id="main-layout">
       <NavBar/>
       <main className="musicPage">
-        {AlbumBanner(music_data.slice(0, middle), 2, 15)}
+        {AlbumBanner(music_data.slice(0, middle), 2, 6, 70)}
         <Blurb/>
-        {AlbumBanner(music_data.slice(middle), 2, 15)}
+        {AlbumBanner(music_data.slice(middle), 2, 6, 70)}
       </main>
     </div>
   );
