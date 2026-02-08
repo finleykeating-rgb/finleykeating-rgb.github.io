@@ -1,4 +1,4 @@
-import { airportFonts } from "@fonts/fonts";
+
 
 export default function MusicRootLayout({
   children,
@@ -6,7 +6,7 @@ export default function MusicRootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={airportFonts.className}>
+    <div>
         {children}
     </div>
   );

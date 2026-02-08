@@ -105,7 +105,7 @@ html{
 
 .blurb {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto auto;
   color: yellow;
 }
 
@@ -123,7 +123,7 @@ html{
   position: absolute;
   width: var(--album-size-percentage);
   height: var(--album-size-percentage);
-  transform: translateY(-100%) translateX(var(--padding-offset));
+  transform: translateY(calc(-100% - var(--padding-offset) / 2))  translateX(calc(var(--padding-offset)));
 }
 
 .thumbnail {
@@ -184,6 +184,17 @@ html{
 }
 
 .center-vertically {
+  display: flex;
+  align-items: center;
+}
+
+.airport-sign {
+  margin: 1.5rem;
+  border: 2px solid black;
+  font-size: 24px;
+  border-radius: 0.5rem;
+  background: black;
+  color: yellow;
   display: flex;
   align-items: center;
 }

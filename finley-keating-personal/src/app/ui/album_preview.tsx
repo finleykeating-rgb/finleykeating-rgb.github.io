@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import useSound from "use-sound";
-import {  useState } from "react";
+import {  Dispatch, SetStateAction, useState } from "react";
 
 // Google AI Hash
 function stringToHashCode(str: string): number {
@@ -21,17 +21,21 @@ function randomToRange(randomNum: number, min: number, max: number, divider: num
 }
 
 
-export default function AlbumPreview(name: string, artist: string, release_year: number, thumbnail: string, album_preview: string, key: number, album_per_screen: number, album_size_percentage: number) {
+export default function AlbumPreview(album: Album, key: number, album_per_screen: number, album_size_percentage: number, setAlbum: Dispatch<SetStateAction<Album>>) {
     let index = 0
     index += 1;
     
     const album_space_percentage = 100 / album_per_screen
     const padding_percentage = (100 - album_size_percentage) / 2
+    console.log(album)
+    const randHash = stringToHashCode(album.name)
+    // const randomAngle = randomToRange(randHash, -15, 15, 1, 2 ** 10);
+    // const randomX = randomToRange(randHash, -10, 10, 2 ** 10, 2 ** 10);
+    // const randomY = randomToRange(randHash, -5, 5, 2 ** 20, 2 ** 10);
 
-    const randHash = stringToHashCode(name)
-    const randomAngle = randomToRange(randHash, -15, 15, 1, 2 ** 10);
-    const randomX = randomToRange(randHash, -10, 10, 2 ** 10, 2 ** 10);
-    const randomY = randomToRange(randHash, -5, 5, 2 ** 20, 2 ** 10);
+    const randomAngle = 0;
+    const randomX = 0;
+    const randomY = 0;
 
     const adjust_angle = () => {
         if (randomAngle * randomY > 0) {
@@ -40,12 +44,13 @@ export default function AlbumPreview(name: string, artist: string, release_year:
             return randomAngle
         }
     }
-    const [play, {stop}] = useSound(album_preview)
+    const [play, {stop}] = useSound(album.album_preview)
     const [delayHandler, setDelayHandler] = useState<number | undefined>(undefined)
 
     const handleMouseEnter = () => {
         const newTimer = window.setTimeout(() => {play()}, 500)
         setDelayHandler(newTimer);
+        setAlbum(album)
     }
 
     const handleMouseLeave = () => {
@@ -57,10 +62,10 @@ export default function AlbumPreview(name: string, artist: string, release_year:
         <div className="album"   key={key} style={{'--album-space-percentage': `${album_space_percentage}%`} as React.CSSProperties}>
             <div className="album-distribution" style={{'--padding-percentage': `${padding_percentage * album_size_percentage / 100}%`, '--random-rotation': `${adjust_angle()}deg`, '--random-translateX': `${randomX}%`, '--random-translateY': `${randomY}%`} as React.CSSProperties}>
                 <Image className="thumbnail" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
-                src={thumbnail}
+                src={album.thumbnail}
                 width={800}
                 height={800}
-                alt={name}
+                alt={album.name}
                 style={{clipPath: "url(#albumMask" + index.toString()}}
                 />
                 <svg width="0" height="0" style={{ position: "absolute" }}>
@@ -82,9 +87,9 @@ export default function AlbumPreview(name: string, artist: string, release_year:
                 </div>
                 
                 <div className="description">
-                    <h1>{name}</h1>
-                    <h1>{artist}</h1>
-                    <h1>{release_year}</h1>
+                    <h1>{album.name}</h1>
+                    <h1>{album.artist}</h1>
+                    <h1>{album.release_year}</h1>
                 </div>
             </div>
         </div>

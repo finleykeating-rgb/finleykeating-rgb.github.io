@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
 import AirportStyleSign from "../ui/airport_style_sign"
@@ -7,7 +7,7 @@ import Albums from "@public/music_descriptions/albums.json";
 import {Howler} from 'howler';
 import { BiVolume, BiVolumeFull, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 
-function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_screen: number, album_size_percentage: number) {
+function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_screen: number, album_size_percentage: number, setAlbum: Dispatch<SetStateAction<Album>>) {
 
   const num = music_data.length;
 
@@ -20,10 +20,10 @@ function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_scr
           <div className="wrapper">
               <div className="images" style={{'--speed': `${speed}s`, '--scroll':`${scroll_distance}%`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index, album_per_screen, album_size_percentage)
+                    AlbumPreview(data, index, album_per_screen, album_size_percentage, setAlbum)
                   ))}
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data.name, data.artist, data.release_year, data.thumbnail, data.album_preview, index + num, album_per_screen, album_size_percentage)
+                    AlbumPreview(data, index + num, album_per_screen, album_size_percentage, setAlbum)
                   ))}
               </div>
           </div>
@@ -31,7 +31,7 @@ function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_scr
   )
 }
 
-function Blurb() {
+function Blurb({name, artist, release_year, thumbnail, album_preview}: Album) {
 
   const [volumePercentage, setVolumePercentage] = useState(50);
   const [isMuted, setMuted] = useState(false);
@@ -62,7 +62,7 @@ function Blurb() {
   return (
     <div className="blurb center-vertically">
       <div>
-        {AirportStyleSign("Music", "music")}
+        {AirportStyleSign("MUSIC", "music")}
       </div>
       <div>
         <p>
@@ -72,7 +72,11 @@ function Blurb() {
       <div>
         <label htmlFor="range-slider">{volumePercentage}% {VolumeControl(volumePercentage, isMuted)}</label>
         <input type="range" min="0" max="100" onChange={updateVolumeSlider}/>
-        
+      </div>
+      <div>
+        <h1>{name}</h1>
+        <h1>{artist}</h1>
+        <h1>{release_year}</h1>    
       </div>
       
     </div>
@@ -86,13 +90,23 @@ export default function music() {
 
   const middle = Math.floor(music_data.length / 2)
 
+  const [currentAlbum, setAlbum] = useState<Album>(
+    {
+      "name": "YMO USA",
+      "artist": "Yellow Magic Orchestra",
+      "release_year": 1978,
+      "thumbnail": "/music_thumbnails/ymo_usa.jpg",
+      "album_preview": "/music_files/album_preview/the_adventures_of_kohsuke_kindaichi_preview.mp3"
+    },
+  )
+
   return (
     <div id="main-layout">
       <NavBar/>
       <main className="musicPage">
-        {AlbumBanner(music_data.slice(0, middle), 2, 6, 70)}
-        <Blurb/>
-        {AlbumBanner(music_data.slice(middle), 2, 6, 70)}
+        {AlbumBanner(music_data.slice(0, middle), 2, 6, 70, setAlbum)}
+        {Blurb(currentAlbum)}
+        {AlbumBanner(music_data.slice(middle), 2, 6, 70, setAlbum)}
       </main>
     </div>
   );
