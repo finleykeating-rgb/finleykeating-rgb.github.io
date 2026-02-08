@@ -41,10 +41,6 @@ html{
   }
 }
 
-/* .banner-wrapper {
-  padding: 2rem 0rem;
-} */
-
 .banner-wrapper .wrapper .images {
   display: flex;
   --scroll-length: var(--scroll);
@@ -74,7 +70,7 @@ html{
 
 .musicPage {
   display: grid;
-  grid-template-rows: 2fr 1fr 2fr;
+  grid-template-rows: auto 1fr auto;
   text-align: center;
   background-image: url("/textures/airport_floor2.png");
 }
@@ -104,8 +100,9 @@ html{
 }
 
 .blurb {
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
   color: yellow;
 }
 
@@ -197,4 +194,35 @@ html{
   color: yellow;
   display: flex;
   align-items: center;
+}
+
+.signage {
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 4px ridge grey;
+  color: black;
+  background-color: white;
+  width: 10rem;
+}
+
+.signage > div {
+  
+  width: 100%;
+}
+
+.signage > div > p {
+  text-align: start;
+  font-size: smaller;
+}
+
+.signage > div > h2 {
+  font-size: large;
+  overflow: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+}
+
+.signage > div > h1 {
+  font-size: xx-large;
+  color: black;
 }

@@ -6,6 +6,8 @@ import AirportStyleSign from "../ui/airport_style_sign"
 import Albums from "@public/music_descriptions/albums.json";
 import {Howler} from 'howler';
 import { BiVolume, BiVolumeFull, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
+import genericSign from "../ui/sign";
+import airportTag from "../ui/airport_tag";
 
 function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_screen: number, album_size_percentage: number, setAlbum: Dispatch<SetStateAction<Album>>) {
 
@@ -60,25 +62,20 @@ function Blurb({name, artist, release_year, thumbnail, album_preview}: Album) {
   };
 
   return (
-    <div className="blurb center-vertically">
+    <div className="blurb">
       <div>
         {AirportStyleSign("MUSIC", "music")}
       </div>
       <div>
-        <p>
-          Hover over an album to view the name, artist, release year and hear an excerpt
-        </p>
+        {genericSign("Hover over an album to view the name, artist, release year and hear an excerpt")}
       </div>
       <div>
         <label htmlFor="range-slider">{volumePercentage}% {VolumeControl(volumePercentage, isMuted)}</label>
         <input type="range" min="0" max="100" onChange={updateVolumeSlider}/>
       </div>
       <div>
-        <h1>{name}</h1>
-        <h1>{artist}</h1>
-        <h1>{release_year}</h1>    
+        {airportTag(name, artist, release_year)}
       </div>
-      
     </div>
     
   )

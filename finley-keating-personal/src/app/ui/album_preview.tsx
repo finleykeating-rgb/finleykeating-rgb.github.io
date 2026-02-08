@@ -27,7 +27,6 @@ export default function AlbumPreview(album: Album, key: number, album_per_screen
     
     const album_space_percentage = 100 / album_per_screen
     const padding_percentage = (100 - album_size_percentage) / 2
-    console.log(album)
     const randHash = stringToHashCode(album.name)
     // const randomAngle = randomToRange(randHash, -15, 15, 1, 2 ** 10);
     // const randomX = randomToRange(randHash, -10, 10, 2 ** 10, 2 ** 10);
