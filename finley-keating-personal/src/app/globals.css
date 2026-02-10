@@ -233,3 +233,34 @@ html{
   color: black;
   background-color: white;
 }
+
+.image-grid {
+  display: grid;
+  grid-template-columns: 40% auto auto;
+  grid-template-rows: auto auto auto;
+  text-align: center;
+  gap: 3rem;
+  color: black;
+}
+
+.image-subtitle {
+  font-size: smaller;
+}
+
+.embla {
+  position: relative;
+}
+
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
