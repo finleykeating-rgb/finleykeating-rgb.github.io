@@ -14,6 +14,12 @@ export default function NavBar() {
                 <li>
                     <Link href="/content">Content</Link>
                 </li>
+                <li>
+                    <Link href="/awards">Awards</Link>
+                </li>
+                <li>
+                    <Link href="/projects">Projects</Link>
+                </li>
             </ul>
         </nav>
     )
