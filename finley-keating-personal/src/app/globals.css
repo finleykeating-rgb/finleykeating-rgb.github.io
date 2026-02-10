@@ -226,3 +226,10 @@ html{
   font-size: xx-large;
   color: black;
 }
+
+.album-description {
+  border: 4px ridge grey;
+  padding: 2rem;
+  color: black;
+  background-color: white;
+}
