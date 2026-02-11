@@ -40,7 +40,13 @@ export default function awards(props: PropType) {
           <div className="chess-box">
             <div>
               <h1>Chess</h1>
-              <h1>
+              <h1>When I was a young boy, my mother taught me how to play chess. 
+              In my primary school I joined the chess club. My school (Waimairi school), competed in a number of interschool tournaments. 
+              School tournament are done as team tournaments. They are done in teams of 4. You are ordered by order of strength 1-4. Each teams 1 plays the 1, 2 plays 2 and so on. I was the 2.
+              Our team was quite successful. We qualified for the nationals two years in a row (2012, 2013) and won the south island championship in 2013.
+              I even did one tournament at a local chess club. This tournament consisted of mostly adults. I managed to get 15th place out of 20.  
+              I enjoyed the creativity and competition of chess.   
+              I still occasionally play to this day on <a style={{color: "blue"}} href={"https://lichess.org/@/AcidRainSSJ/perf/rapid"}>Lichess</a> but mostly puzzles.
               </h1>
             </div>
             <div className="embla" style={{width: "400px"}}>
