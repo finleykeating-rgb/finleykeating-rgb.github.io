@@ -234,10 +234,38 @@ html{
   background-color: white;
 }
 
+
 .chess-box {
+  flex: 1;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.chess-box > div:first-child {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chess-box h1 {
+  font-size: 2rem;
+}
+
+.chess-box h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.chess-box + .chess-box {
+  margin-left: 4rem;
 }
 
 .embla {
@@ -266,20 +294,22 @@ html{
 }
 
 .embla__slide > div {
-  max-height: 200px;
-  
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .embla__slide > div > img {
   max-height: 100%;
-  padding: 0 2rem;
+  max-width: 100%;
+  object-fit: contain;
 }
+
 
 .embla__slide > p {
   color: black;
-
 }
-
 
 .embla__slide__number {
   border: 0.2rem solid grey;
@@ -292,6 +322,7 @@ html{
   height: var(--slide-height);
   user-select: none;
 }
+
 .embla__controls {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -299,12 +330,14 @@ html{
   gap: 1.2rem;
   margin-top: 1.8rem;
 }
+
 .embla__buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.6rem;
   align-items: center;
 }
+
 .embla__button {
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
@@ -381,4 +414,18 @@ html{
 }
 .embla__dot--selected:after {
   opacity: 1;
+}
+
+/* .award-page {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+} */
+
+.award-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
