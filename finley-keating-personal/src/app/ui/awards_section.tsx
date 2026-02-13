@@ -27,13 +27,13 @@ export default function AwardSection( {title, content, images}: AwardContent) {
     } = usePrevNextButtons(emblaApi)
 
     return (<div className="chess-box">
-        <div>
+        <div style={{flex: 1, overflowY: "auto"}}>
             <h1>{title}</h1>
             {content.map((data, index) => {
                 return (<p key={index}>{parseMarkdownLinks(data)}</p>)
             })}
         </div>
-        <div className="embla">
+        <div className="embla" style={{marginTop: "auto"}}>
               <div className="embla__viewport" ref={emblaRef}>
                 <div className="embla__container">
                     {images.map((data: image) => {
@@ -48,14 +48,14 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                     })}
                 </div>
             </div>
-            <div className="embla__controls">
+            <div className={scrollSnaps.length > 1 ? "embla__controls" : "embla__controls hidden"}>
                 <div className="embla__buttons">
                   <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
                   <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
                 </div>
 
                 <div className="embla__dots">
-                  {scrollSnaps.length > 1 && scrollSnaps.map((_, index) => (
+                  {scrollSnaps.map((_, index) => (
                     <DotButton
                         key={index}
                         onClick={() => onDotButtonClick(index)}
@@ -65,7 +65,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                     />
                     ))}
                 </div>
-              </div>
+            </div>
         </div>
     </div>)
 }

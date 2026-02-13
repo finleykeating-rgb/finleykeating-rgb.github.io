@@ -236,6 +236,10 @@ html{
 
 
 .chess-box {
+  height: 100%;          
+  display: flex;
+  flex-direction: column; 
+  overflow: hidden;
   flex: 1;
   padding: 2rem;
   border-radius: 1rem;
@@ -425,7 +429,12 @@ html{
 } */
 
 .award-page {
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+}
+
+.hidden {
+  visibility: hidden;
 }
