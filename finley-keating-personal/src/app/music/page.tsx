@@ -1,5 +1,5 @@
 "use client"
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from "react";
 import AlbumPreview from "../ui/album_preview";
 import NavBar from "../ui/nav-bar";
 import AirportStyleSign from "../ui/airport_style_sign"
@@ -9,7 +9,9 @@ import { BiVolume, BiVolumeFull, BiVolumeLow, BiVolumeMute } from "react-icons/b
 import genericSign from "../ui/sign";
 import airportTag from "../ui/airport_tag";
 
-function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_screen: number, album_size_percentage: number, setAlbum: Dispatch<SetStateAction<Album>>) {
+
+
+function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_screen: number, album_size_percentage: number, updateAlbum: AlbumCallback, stopAlbum: AlbumCallback) {
 
   const num = music_data.length;
 
@@ -22,10 +24,10 @@ function AlbumBanner(music_data: Album[], speed_per_album: number, album_per_scr
           <div className="wrapper">
               <div className="images" style={{'--speed': `${speed}s`, '--scroll':`${scroll_distance}%`} as React.CSSProperties}>
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data, index, album_per_screen, album_size_percentage, setAlbum)
+                    AlbumPreview(data, index, album_per_screen, album_size_percentage, updateAlbum, stopAlbum)
                   ))}
                   {music_data.map((data, index)=> (
-                    AlbumPreview(data, index + num, album_per_screen, album_size_percentage, setAlbum)
+                    AlbumPreview(data, index + num, album_per_screen, album_size_percentage, updateAlbum, stopAlbum)
                   ))}
               </div>
           </div>
@@ -94,27 +96,67 @@ function Blurb({name, artist, release_year, thumbnail, album_preview}: Album) {
 
 export default function music() {
 
+  const soundsRef = useRef<Record<string, Howl>>({});
+  
+
+  const playSound = useCallback((filename: string, volume: number = 1.0) => {
+    if (soundsRef.current[filename]) {
+      if (!soundsRef.current[filename].playing()) {
+        soundsRef.current[filename].play();
+      }
+      return;
+    }
+
+    const sound = new Howl({
+      src: [filename],
+      volume: volume,
+      html5: true,
+      onloaderror: function(id: number, error: unknown) {
+        console.error(`Failed to load sound: ${filename}`, error);
+      }
+    });
+
+    soundsRef.current[filename] = sound;
+    sound.play();
+    console.log("Playing ", filename)
+  }, []);
+
+  const stopSound = useCallback((filename: string) => {
+    if (soundsRef.current[filename]) {
+      soundsRef.current[filename].stop();
+    }
+  }, [])
+
   const music_data : Album[] = Albums
 
   const middle = Math.floor(music_data.length / 2)
 
   const [currentAlbum, setAlbum] = useState<Album>(
     {
-      "name": "YMO USA",
-      "artist": "Yellow Magic Orchestra",
+      "name": "Pacific",
+      "artist": "Haruomi Hosono, Shigeru Suzuki, Tatsuro Yamashita",
       "release_year": 1978,
-      "thumbnail": "/music_thumbnails/ymo_usa.jpg",
-      "album_preview": "/music_files/album_preview/the_adventures_of_kohsuke_kindaichi_preview.mp3"
+      "thumbnail": "/music_thumbnails/pacific.webp",
+      "album_preview": "/music_files/album_preview/pacific_preview.mp3"
     },
   )
+
+  function updateAlbum(album: Album) {
+    setAlbum(album);
+    playSound(album.album_preview)
+  };
+
+  function stopAlbum(album: Album) {
+    stopSound(album.album_preview)
+  }
 
   return (
     <div id="main-layout">
       <NavBar/>
       <main className="musicPage">
-        {AlbumBanner(music_data.slice(0, middle), 2, 6, 70, setAlbum)}
+        {AlbumBanner(music_data.slice(0, middle), 2, 6, 70, updateAlbum, stopAlbum)}
         {Blurb(currentAlbum)}
-        {AlbumBanner(music_data.slice(middle), 2, 6, 70, setAlbum)}
+        {AlbumBanner(music_data.slice(middle), 2, 6, 70, updateAlbum, stopAlbum)}
       </main>
     </div>
   );

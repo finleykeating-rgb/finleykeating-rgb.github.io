@@ -5,3 +5,5 @@ interface Album {
     thumbnail: string,
     album_preview: string
 }
+
+type AlbumCallback = (Album: Album) => void;

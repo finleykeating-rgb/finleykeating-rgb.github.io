@@ -1,7 +1,5 @@
 'use client'
 import Image from "next/image";
-import useSound from "use-sound";
-import {  Dispatch, SetStateAction, useState } from "react";
 
 // Google AI Hash
 function stringToHashCode(str: string): number {
@@ -21,7 +19,7 @@ function randomToRange(randomNum: number, min: number, max: number, divider: num
 }
 
 
-export default function AlbumPreview(album: Album, key: number, album_per_screen: number, album_size_percentage: number, setAlbum: Dispatch<SetStateAction<Album>>) {
+export default function AlbumPreview(album: Album, key: number, album_per_screen: number, album_size_percentage: number, updateAlbum: AlbumCallback, stopAlbum: AlbumCallback) {
     let index = 0
     index += 1;
     
@@ -43,18 +41,23 @@ export default function AlbumPreview(album: Album, key: number, album_per_screen
             return randomAngle
         }
     }
-    const [play, {stop}] = useSound(album.album_preview)
-    const [delayHandler, setDelayHandler] = useState<number | undefined>(undefined)
+
+    let lastPlayed = Date.now()
 
     const handleMouseEnter = () => {
-        const newTimer = window.setTimeout(() => {play()}, 500)
-        setDelayHandler(newTimer);
-        setAlbum(album)
+        const now = Date.now()
+
+        if (lastPlayed && now - lastPlayed < 100) {
+            return
+        }
+
+        lastPlayed = now
+
+        updateAlbum(album)
     }
 
     const handleMouseLeave = () => {
-        clearTimeout(delayHandler)
-        stop()
+        stopAlbum(album)
     }
 
     return (
