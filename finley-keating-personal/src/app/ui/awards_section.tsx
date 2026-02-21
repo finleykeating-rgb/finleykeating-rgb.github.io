@@ -6,11 +6,6 @@ import { NextButton, PrevButton, usePrevNextButtons } from "./EmblaCarousel/embl
 import Image from "next/image"
 import { parseMarkdownLinks } from "../helper/ai_helper";
 
-type PropType = {
-  slides: number[]
-  options?: EmblaOptionsType
-}
-
 export default function AwardSection( {title, content, images}: AwardContent) {
     const OPTIONS: EmblaOptionsType = {}
 
@@ -33,7 +28,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                 return (<p key={index}>{parseMarkdownLinks(data)}</p>)
             })}
         </div>
-        <div className="embla" style={{marginTop: "auto"}}>
+        <div className="dots_slide_container" style={{marginTop: "auto"}}>
               <div className="embla__viewport" ref={emblaRef}>
                 <div className="embla__container">
                     {images.map((data: image) => {

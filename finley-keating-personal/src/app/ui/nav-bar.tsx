@@ -9,9 +9,6 @@ export default function NavBar() {
                     <Link href="/music">Music</Link>
                 </li>
                 <li>
-                    <Link href="/movies">Movies</Link>
-                </li>
-                <li>
                     <Link href="/content">Content</Link>
                 </li>
                 <li>

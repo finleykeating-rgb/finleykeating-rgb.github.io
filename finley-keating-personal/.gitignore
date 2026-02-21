@@ -42,6 +42,7 @@ public/music_files
 public/fonts
 public/textures
 public/resources
+public/content_thumbnails
 
 # typescript
 *.tsbuildinfo
