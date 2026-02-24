@@ -43,6 +43,7 @@ public/fonts
 public/textures
 public/resources
 public/content_thumbnails
+public/cv
 
 # typescript
 *.tsbuildinfo

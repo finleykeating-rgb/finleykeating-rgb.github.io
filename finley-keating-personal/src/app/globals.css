@@ -563,3 +563,65 @@ html{
   gap: 8px;
   padding: 0 8px;
 }
+
+.main_page {
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  padding-top: 80px;
+
+}
+
+.main_title {
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #111;
+  margin-bottom: 1rem;
+}
+
+.main_subtitle {
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #e0ded9;
+}
+
+.main_overview {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #444;
+  max-width: 580px;
+  margin-bottom: 2.5rem;
+}
+
+.main_cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #111;
+  text-decoration: none;
+  border-bottom: 2px solid #111;
+  padding-bottom: 2px;
+  margin-bottom: 4rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.main_disclaimer {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #aaa;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+  border-top: 1px solid #e0ded9;
+  padding-top: 1.5rem;
+}
