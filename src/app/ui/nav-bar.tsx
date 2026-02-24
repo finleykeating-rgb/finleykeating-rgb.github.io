@@ -21,6 +21,7 @@ export default function NavBar() {
     }, []);
 
     const links = [
+        { href: "/", label: "Home"},
         { href: "/music", label: "Music" },
         { href: "/content", label: "Content" },
         { href: "/awards", label: "Awards" },

@@ -1,9 +1,9 @@
-import type { NextConfig } from "next";
+
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/finleykeating-rgb.github.io',
+  basePath: process.env.NODE_ENV === 'production' ? '/finleykeating-rgb.github.io' : '',
   images: {
     unoptimized: true, 
   },
