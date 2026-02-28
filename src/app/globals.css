@@ -253,10 +253,6 @@ html{
   padding: 2rem;
 }
 
-.chess-box + .chess-box {
-  margin-left: 4rem;
-}
-
 .dots_slide_container {
   max-width: 48rem;
   margin: auto;
@@ -506,6 +502,7 @@ html{
   height: 100%;
   overflow-y: hidden;
   padding: 16px;
+  text-align: left;
 }
 
 .slide__title {
@@ -708,6 +705,7 @@ html{
   padding: 0 2.5rem;
   cursor: pointer;
   height: 20px;
+   max-width: 120px;
 }
 
 #sidebar-toggle-line {
@@ -719,7 +717,7 @@ html{
 }
 
 #sidebar.collapsed #sidebar-toggle-line {
-  width: 20px;
+  width: 0px;
 }
 
 #sidebar-toggle-arrow {
@@ -735,4 +733,9 @@ html{
 
 #sidebar.collapsed #sidebar-toggle-arrow {
   opacity: 1;
+}
+
+.content-info {
+  margin-bottom: 0.5rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

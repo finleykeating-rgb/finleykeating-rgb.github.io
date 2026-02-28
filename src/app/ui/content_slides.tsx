@@ -71,7 +71,7 @@ export const content_section = (content: content_content[]) => {
                     />
                     <div className="slide__description">
                     {data.description.map((desc, index) => (
-                        <p key={index}>{parseMarkdownLinks(desc)}</p>
+                        <p className="content-info" key={index}>{parseMarkdownLinks(desc)}</p>
                     ))}
                     </div>
                 </div>

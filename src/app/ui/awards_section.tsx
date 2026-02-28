@@ -25,7 +25,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
         <div style={{flex: 1, overflowY: "auto"}}>
             <h1>{title}</h1>
             {content.map((data, index) => {
-                return (<p key={index}>{parseMarkdownLinks(data)}</p>)
+                return (<h4 key={index}>{parseMarkdownLinks(data)}</h4>)
             })}
         </div>
         <div className="dots_slide_container" style={{marginTop: "auto"}}>
@@ -37,7 +37,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                                 <div>
                                     <Image src={data.location} width={data.width} height={data.height} alt={data.alt_text}/>
                                 </div>
-                                <p className="image-subtitle">{parseMarkdownLinks(data.subtitle)}</p>
+                                <p className="main-subtitle">{parseMarkdownLinks(data.subtitle)}</p>
                             </div>
                         )
                     })}
