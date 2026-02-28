@@ -36,14 +36,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-public/music_descriptions
-public/music_thumbnails
-public/music_files
-public/fonts
-public/textures
-public/resources
-public/content_thumbnails
-public/cv
+public/
 
 # typescript
 *.tsbuildinfo

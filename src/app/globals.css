@@ -613,11 +613,12 @@ html{
 }
 
 #sidebar {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   height: 100vh;
   width: 220px;
+  min-width: 220px;
   background: #faf9f7;
   border-right: 1px solid #e0ded9;
   display: flex;
@@ -630,7 +631,8 @@ html{
 }
 
 #sidebar.collapsed {
-  width: 48px;
+  width: 80px;
+  min-width: 80px;
   padding: 3rem 0;
   border-right-color: transparent;
 }
