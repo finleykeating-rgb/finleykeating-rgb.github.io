@@ -75,7 +75,7 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Download Assets
         run: |
-          gh release download 0.0.1 --pattern "public.zip" --dir ./tmp
+          gh release download 0.0.2 --pattern "public.zip" --dir ./tmp
           unzip ./tmp/public.zip -d ./public
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
