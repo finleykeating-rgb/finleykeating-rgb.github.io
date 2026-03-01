@@ -200,16 +200,40 @@ html{
   font-size: smaller;
 }
 
-.signage > div > h2 {
+.airport-tag {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid black;
+  color: black;
+  background-color: white;
+  width: 10rem;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 2rem 1fr 2fr 1fr 1fr 2rem;
+  grid-template-columns: 2rem 6rem 2rem;
+}
+
+.airport-tag > div > h1 {
+  font-size: xx-large;
+  color: black;
+}
+
+.airport-tag > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.airport-tag > div > h2 {
   font-size: large;
   overflow: hidden;
   white-space: nowrap; 
   text-overflow: ellipsis;
+  padding-left: 0.5rem;
+  margin-top: auto;
 }
 
-.signage > div > h1 {
-  font-size: xx-large;
-  color: black;
+.airport-tag > div > p {
+  text-align: start;
+  font-size: smaller;
 }
 
 .album-description {

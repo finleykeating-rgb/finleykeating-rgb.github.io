@@ -75,9 +75,8 @@ function Blurb({name, artist, release_year, thumbnail, album_preview}: Album) {
         <label htmlFor="range-slider">{volumePercentage}% {VolumeControl(volumePercentage, isMuted)}</label>
         <input type="range" min="0" max="100" onChange={updateVolumeSlider}/>
       </div>
-      <div>
-        {airportTag(name, artist, release_year)}
-      </div>
+      {/* {airportTag(name, artist, release_year)} */}
+      
       {/* <div className="album-description">
         <h1>
           Seychelles is the debut solo album of Masayoshi Takanaka. The sound is based of the idea of the Seychelles, an island nation of the coast of Africa. 

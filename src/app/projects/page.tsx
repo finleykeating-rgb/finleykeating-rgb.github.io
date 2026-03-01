@@ -1,9 +1,9 @@
 "use client"
 import NavBar from "../ui/nav-bar";
-import AwardSection from "../ui/awards_section";
 import Projects from "@public/music_descriptions/projects.json";
-import { AwardContent } from "../types/award_content";
 import { EmblaOptionsType } from "embla-carousel";
+import { ProjectContent } from "../types/project_content";
+import ProjectSection from "../ui/project_section";
 
 type PropType = {
   slides: number[]
@@ -12,19 +12,19 @@ type PropType = {
 
 export default function projects() {
   
-  const project_data: AwardContent[] = Projects
+  const project_data: ProjectContent[] = Projects
 
   return (
     <div id="main-layout">
       <NavBar/>
-      <main>
+      <main style={{height: "100vh"}}>
         <div className="award-page">
           {project_data.map((data) => {
             const OPTIONS: EmblaOptionsType = {}
             const SLIDE_COUNT = 5
             const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
             const props = { options: OPTIONS, slides: SLIDES }
-            return (<AwardSection key={data.title} title={data.title} content={data.content} images={data.images}/>)
+            return (<ProjectSection key={data.title} title={data.title} quick_summary={data.quick_summary} content={data.content} images={data.images}/>)
           })}
          
         </div>
