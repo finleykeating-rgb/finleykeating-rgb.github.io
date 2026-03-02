@@ -58,6 +58,7 @@ html{
   grid-template-rows: auto 1fr auto;
   text-align: center;
   background-image: url("/textures/airport_floor2.png");
+  /* background-color: black; */
 }
 
 @keyframes bgScroll {
@@ -87,6 +88,7 @@ html{
 .blurb {
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   gap: 2rem;
   color: yellow;
 }
@@ -679,7 +681,9 @@ html{
 }
 
 #sidebar a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'Lato', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -709,8 +713,7 @@ html{
 #sidebar a:hover::before { width: 1.5rem; }
 
 #sidebar a.active {
-  color: #111;
-  font-style: italic;
+  color: hotpink;
   font-family: 'Playfair Display', serif;
   font-size: 0.9rem;
   letter-spacing: 0;
@@ -729,7 +732,7 @@ html{
   padding: 0 2.5rem;
   cursor: pointer;
   height: 20px;
-   max-width: 120px;
+  max-width: 120px;
 }
 
 #sidebar-toggle-line {
@@ -750,13 +753,21 @@ html{
   top: 50%;
   transform: translateY(-50%);
   border: 4px solid transparent;
-  border-left-color: #1a1a1a;
+  border-left-color: white;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
 #sidebar.collapsed #sidebar-toggle-arrow {
   opacity: 1;
+}
+
+#sidebar.collapsed #sidebar-toggle {
+  background-color: black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-left: 1.5rem;
+  max-width: 0;
 }
 
 .content-info {

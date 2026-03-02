@@ -65,9 +65,9 @@ function Blurb({name, artist, release_year, thumbnail, album_preview}: Album) {
 
   return (
     <div className="blurb">
-      <div>
+      {/* <div>
         {AirportStyleSign("MUSIC", "music")}
-      </div>
+      </div> */}
       <div>
         {genericSign("Hover over an album to view the name, artist, release year and hear an excerpt")}
       </div>

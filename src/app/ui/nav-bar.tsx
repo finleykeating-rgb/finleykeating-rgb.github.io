@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { CiBookmarkCheck, CiDeliveryTruck, CiHome, CiMusicNote1 } from "react-icons/ci";
+import { TfiCup } from "react-icons/tfi";
 
 
 export default function NavBar() {
@@ -21,11 +23,11 @@ export default function NavBar() {
     }, []);
 
     const links = [
-        { href: "/", label: "Home"},
-        { href: "/music", label: "Music" },
-        { href: "/content", label: "Content" },
-        { href: "/awards", label: "Awards" },
-        { href: "/projects", label: "Projects" },
+        { href: "/", label: "Home", icon: <CiHome/>},
+        { href: "/music", label: "Music", icon: <CiMusicNote1/> },
+        { href: "/content", label: "Bookmarks", icon: <CiBookmarkCheck/> },
+        { href: "/awards", label: "Awards", icon: <TfiCup/> },
+        { href: "/projects", label: "Projects", icon: <CiDeliveryTruck/> },
     ];
 
 
@@ -37,10 +39,11 @@ export default function NavBar() {
             </div>
             </div>
             <ul>
-            {links.map(({ href, label }) => (
+            {links.map(({ href, label, icon }) => (
                 <li key={href}>
-                <Link href={href} className={pathname === href ? "active" : ""}>
+                <Link href={href} className={`flex items-center gap-2 ${pathname === href ? "active" : ""}`}>
                     {label}
+                    {icon}
                 </Link>
                 </li>
             ))}
