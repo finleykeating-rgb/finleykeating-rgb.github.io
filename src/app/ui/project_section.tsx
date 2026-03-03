@@ -22,18 +22,15 @@ export default function ProjectSection( {title, quick_summary, content, images}:
         onNextButtonClick
     } = usePrevNextButtons(emblaApi)
 
-    return (<div className="chess-box">
+    return (<div className="section-box">
         <h1 style={{paddingBottom: "1rem"}}>{title}</h1>
-        <div style={{flex: 1, overflowY: "auto"}}>
+        <div>
             
-            <h2>{quick_summary.is_ongoing ? "This project is currently ongoing" : ""}</h2>
+            <h2>{quick_summary.is_ongoing ? "This project is currently ongoing" : ""}</h2>x
             
             <h2>Length: {quick_summary.length}</h2>
             <h2>Technologies: {quick_summary.technologies}</h2>
             <h2>Concepts: {quick_summary.concepts}</h2>
-            {content.map((data, index) => {
-                return (<h4 key={index}>{parseMarkdownLinks(data)}</h4>)
-            })}
         </div>
         <div className="dots_slide_container" style={{marginTop: "auto", paddingTop: "1rem"}}>
               <div className="embla__viewport" ref={emblaRef}>
@@ -69,5 +66,10 @@ export default function ProjectSection( {title, quick_summary, content, images}:
                 </div>
             </div>
         </div>
+        {/* <div>
+            {content.map((data, index) => {
+                return (<h4 key={index}>{parseMarkdownLinks(data)}</h4>)
+            })}
+        </div> */}
     </div>)
 }

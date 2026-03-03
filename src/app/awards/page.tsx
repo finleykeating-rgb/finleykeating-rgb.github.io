@@ -11,7 +11,10 @@ export default function awards() {
   return (
     <div id="main-layout">
       <NavBar/>
-      <main>
+      <main style={{width: "100%"}}>
+        <div style={{display: "flex", justifyContent: "center", padding: "2rem", fontSize: "2.5rem", borderBottom: "2px solid grey", marginBottom: "2rem"}}>
+          <h1>Awards/Competitions</h1>
+        </div>
         <div className="award-page">
           {award_data.map((data) => {
             return (<AwardSection key={data.title} title={data.title} content={data.content} images={data.images}/>)
