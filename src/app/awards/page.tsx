@@ -11,7 +11,7 @@ export default function awards() {
   return (
     <div id="main-layout">
       <NavBar/>
-      <main style={{width: "100%"}}>
+      <main style={{width: "100%", overflowY: "scroll", maxHeight: "100vh"}}>
         <div style={{display: "flex", justifyContent: "center", padding: "2rem", fontSize: "2.5rem", borderBottom: "2px solid grey", marginBottom: "2rem"}}>
           <h1>Awards/Competitions</h1>
         </div>

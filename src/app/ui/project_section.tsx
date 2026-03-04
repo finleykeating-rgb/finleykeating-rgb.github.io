@@ -6,6 +6,8 @@ import { NextButton, PrevButton, usePrevNextButtons } from "./EmblaCarousel/embl
 import Image from "next/image"
 import { parseMarkdownLinks } from "../helper/ai_helper";
 import { ProjectContent } from "../types/project_content";
+import { useState } from "react";
+import { LuBookOpen, LuBook } from "react-icons/lu";
 
 export default function ProjectSection( {title, quick_summary, content, images}: ProjectContent) {
     const OPTIONS: EmblaOptionsType = {}
@@ -22,54 +24,74 @@ export default function ProjectSection( {title, quick_summary, content, images}:
         onNextButtonClick
     } = usePrevNextButtons(emblaApi)
 
-    return (<div className="section-box">
-        <h1 style={{paddingBottom: "1rem"}}>{title}</h1>
-        <div>
-            
-            <h2>{quick_summary.is_ongoing ? "This project is currently ongoing" : ""}</h2>x
-            
-            <h2>Length: {quick_summary.length}</h2>
-            <h2>Technologies: {quick_summary.technologies}</h2>
-            <h2>Concepts: {quick_summary.concepts}</h2>
-        </div>
-        <div className="dots_slide_container" style={{marginTop: "auto", paddingTop: "1rem"}}>
-              <div className="embla__viewport" ref={emblaRef}>
-                <div className="embla__container">
-                    {images.map((data: image) => {
-                        return (
-                            <div key={data.alt_text} className="embla__slide">
-                                <div>
-                                    <Image src={data.location} width={data.width} height={data.height} alt={data.alt_text}/>
-                                </div>
-                                <p className="main-subtitle">{parseMarkdownLinks(data.subtitle)}</p>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-            <div className={scrollSnaps.length > 1 ? "embla__controls" : "embla__controls hidden"}>
-                <div className="embla__buttons">
-                  <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-                  <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-                </div>
+    const [showMore, setShowMore] = useState(false);
+    
+    const toggleMore = () => {
+        setShowMore(!showMore)
+    }
 
-                <div className="embla__dots">
-                  {scrollSnaps.map((_, index) => (
-                    <DotButton
-                        key={index}
-                        onClick={() => onDotButtonClick(index)}
-                        className={'embla__dot'.concat(
-                        index === selectedIndex ? ' embla__dot--selected' : ''
-                        )}
-                    />
-                    ))}
+    return (
+        <div className="award-section">
+            <div style={{width: "fit-content", borderRight: showMore ? "1px solid grey" : "", paddingRight: showMore ? "2rem" : ""}}>
+                <div>
+                    <div style={{display: "flex", justifyContent: "space-between", paddingBottom: "1rem"}}>
+                        <h1>{title}</h1>
+                        <button className={`flex items-center gap-2`} style={{color: showMore ? "hotpink" : "blue"}} onClick={toggleMore}>{showMore ? 'Collapse' : 'Read More'}{showMore ? <LuBook/> : <LuBookOpen/>}</button>
+                    </div>
+                </div>
+                <div style={{paddingBottom: showMore ? "" : "1rem"}}>
+                    <h2>{quick_summary.is_ongoing ? "This project is currently ongoing" : ""}</h2>
+                    <h2>Length: {quick_summary.length}</h2>
+                    <h2>Technologies: {quick_summary.technologies}</h2>
+                    <h2>Concepts: {quick_summary.concepts}</h2>
+                </div>
+                <div className="dots_slide_container" style={{marginTop: "auto"}}>
+                    <div className="embla__viewport" ref={emblaRef}>
+                        <div className="embla__container">
+                            {images.map((data: image) => {
+                                return (
+                                    <div key={data.alt_text} className="embla__slide">
+                                        <div>
+                                            <Image src={data.location} width={data.width} height={data.height} alt={data.alt_text}/>
+                                        </div>
+                                        <p className="main-subtitle">{parseMarkdownLinks(data.subtitle)}</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <div className={scrollSnaps.length > 1 ? "embla__controls" : "embla__controls hidden"}>
+                        <div className="embla__buttons">
+                        <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+                        <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+                        </div>
+
+                        <div className="embla__dots">
+                        {scrollSnaps.map((_, index) => (
+                            <DotButton
+                                key={index}
+                                onClick={() => onDotButtonClick(index)}
+                                className={'embla__dot'.concat(
+                                index === selectedIndex ? ' embla__dot--selected' : ''
+                                )}
+                            />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        {/* <div>
-            {content.map((data, index) => {
-                return (<h4 key={index}>{parseMarkdownLinks(data)}</h4>)
-            })}
-        </div> */}
-    </div>)
+            
+            {<div className="award-read-more" style={{
+                maxHeight: showMore ? 'fit-content' : '0',
+                maxWidth: showMore ? 'fit-content': '0',
+                opacity: showMore ? 1 : 0,
+                overflow: 'hidden',
+                visibility: showMore ? 'visible' : 'hidden',
+                transition: 'max-height 0.3s ease, max-width 0.3s ease, opacity 0.3s ease, visibility 0.3s ease'
+            }}>
+                    {content.map((data, index) => {
+                        return (<h4 key={index} style={{marginBottom: "1rem"}}>{parseMarkdownLinks(data)}</h4>)
+                    })}
+            </div>}
+        </div>)
 }

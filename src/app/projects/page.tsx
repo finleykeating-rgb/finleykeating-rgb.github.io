@@ -17,7 +17,10 @@ export default function projects() {
   return (
     <div id="main-layout">
       <NavBar/>
-      <main style={{height: "100vh"}}>
+      <main style={{width: "100%", overflowY: "scroll", maxHeight: "100vh"}}>
+        <div style={{display: "flex", justifyContent: "center", padding: "2rem", fontSize: "2.5rem", borderBottom: "2px solid grey", marginBottom: "2rem"}}>
+          <h1>Projects</h1>
+        </div>
         <div className="award-page">
           {project_data.map((data) => {
             const OPTIONS: EmblaOptionsType = {}

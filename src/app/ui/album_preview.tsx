@@ -88,7 +88,7 @@ export default function AlbumPreview(album: Album, key: number, album_per_screen
                         />
                 </div>
                 
-                <div className="description">
+                <div className="description unselectable-text">
                     <h1>{album.name}</h1>
                     <h1>{album.artist}</h1>
                     <h1>{album.release_year}</h1>

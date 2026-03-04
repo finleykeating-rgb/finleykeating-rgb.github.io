@@ -372,7 +372,7 @@ html{
   transform: rotate(0deg);
 }
 .embla__button--disabled {
-  color: var(--detail-high-contrast);
+  color: black;
 }
 .embla__button__svg {
   width: 35%;
@@ -419,7 +419,7 @@ html{
   border: 0.2rem solid grey;
 }
 .embla__dot:after {
-  border: 0.2rem solid var(--text-body);
+  border: 0.2rem solid #1a1a1a;
   opacity: 0;
 }
 .embla__dot--selected:after {
@@ -494,7 +494,7 @@ html{
   border: 0.2rem solid var(--detail-medium-contrast);
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--detail-high-contrast);
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -502,7 +502,7 @@ html{
   width: 100%;
 }
 .embla-thumbs__slide--selected .embla-thumbs__slide__number {
-  color: var(--text-body);
+  color: #1a1a1a;
 }
 
 .embla__slide__number {
@@ -790,4 +790,8 @@ html{
 .content-info {
   margin-bottom: 0.5rem;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.unselectable-text {
+  pointer-events: none;
 }

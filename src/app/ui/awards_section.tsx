@@ -6,7 +6,7 @@ import { NextButton, PrevButton, usePrevNextButtons } from "./EmblaCarousel/embl
 import Image from "next/image"
 import { parseMarkdownLinks } from "../helper/ai_helper";
 import { useState } from "react";
-import { GoBook } from "react-icons/go";
+import { LuBookOpen, LuBook } from "react-icons/lu";
 
 export default function AwardSection( {title, content, images}: AwardContent) {
     const OPTIONS: EmblaOptionsType = {}
@@ -35,7 +35,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                 <div>
                     <div style={{display: "flex", justifyContent: "space-between", paddingBottom: "1rem"}}>
                         <h1>{title}</h1>
-                        <button className={`flex items-center gap-2`} onClick={toggleMore}>{showMore ? 'Collapse' : 'Read More'}<GoBook/></button>
+                        <button className={`flex items-center gap-2`} style={{color: showMore ? "hotpink" : "blue"}} onClick={toggleMore}>{showMore ? 'Collapse' : 'Read More'}{showMore ? <LuBook/> : <LuBookOpen/>}</button>
                     </div>
                 </div>
                 <div className="dots_slide_container" style={{marginTop: "auto"}}>
@@ -83,7 +83,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                 transition: 'max-height 0.3s ease, max-width 0.3s ease, opacity 0.3s ease, visibility 0.3s ease'
             }}>
                     {content.map((data, index) => {
-                        return (<h4 key={index}>{parseMarkdownLinks(data)}</h4>)
+                        return (<h4 key={index} style={{marginBottom: "1rem"}}>{parseMarkdownLinks(data)}</h4>)
                     })}
             </div>}
         </div>)
