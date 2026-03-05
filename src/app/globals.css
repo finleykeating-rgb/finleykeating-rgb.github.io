@@ -480,25 +480,20 @@ html{
 }
 .embla-thumbs__slide__number {
   border-radius: 1.8rem;
-  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
-  -webkit-appearance: none;
   appearance: none;
   background-color: transparent;
   touch-action: manipulation;
   display: inline-flex;
-  text-decoration: none;
   cursor: pointer;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  border: 0.2rem solid var(--detail-medium-contrast);
+  padding: 1rem;
+  border: 0.2rem solid gray;
   font-size: 1.8rem;
   font-weight: 600;
   color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--thumbs-slide-height);
+  height: 7rem;
   width: 100%;
 }
 .embla-thumbs__slide--selected .embla-thumbs__slide__number {
@@ -576,7 +571,7 @@ html{
 }
 
 .content-thumbs {
-  border: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
   padding: 8px 0;
 }
 

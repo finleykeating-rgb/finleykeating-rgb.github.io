@@ -53,7 +53,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                             })}
                         </div>
                     </div>
-                    <div className={scrollSnaps.length > 1 ? "embla__controls" : "embla__controls hidden"}>
+                    {scrollSnaps.length > 1 && <div className={"embla__controls"}>
                         <div className="embla__buttons">
                         <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
                         <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
@@ -70,7 +70,7 @@ export default function AwardSection( {title, content, images}: AwardContent) {
                             />
                             ))}
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
             
