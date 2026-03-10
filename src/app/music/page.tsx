@@ -71,9 +71,12 @@ function Blurb({name, artist, release_year, thumbnail, album_preview}: Album) {
       <div>
         {genericSign("Hover over an album to view the name, artist, release year and hear an excerpt")}
       </div>
-      <div>
-        <label htmlFor="range-slider">{volumePercentage}% {VolumeControl(volumePercentage, isMuted)}</label>
-        <input type="range" min="0" max="100" onChange={updateVolumeSlider}/>
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <div style={{display: "flex", gap: "8px"}}>
+          <label htmlFor="range-slider">{VolumeControl(volumePercentage, isMuted)}</label>
+          <input type="range" min="0" max="100" onChange={updateVolumeSlider}/>
+        </div>
+        <p style={{fontSize: "1rem"}}>(You have to click on the page at least once for music playback)</p>
       </div>
       {/* {airportTag(name, artist, release_year)} */}
       
